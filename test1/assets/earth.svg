@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Earth from space background">
+  <defs>
+    <radialGradient id="spaceGrad" cx="50%" cy="35%" r="75%">
+      <stop offset="0%" stop-color="#021124"/>
+      <stop offset="50%" stop-color="#001025"/>
+      <stop offset="100%" stop-color="#000814"/>
+    </radialGradient>
+    <radialGradient id="earthGlow" cx="30%" cy="70%">
+      <stop offset="0%" stop-color="#7fd3ff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#004b7a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- space background -->
+  <rect width="100%" height="100%" fill="url(#spaceGrad)" />
+
+  <!-- faint stars -->
+  <g fill="#ffffff" opacity="0.9">
+    <circle cx="120" cy="80" r="1.6" />
+    <circle cx="220" cy="160" r="1.2" />
+    <circle cx="320" cy="40" r="1.4" />
+    <circle cx="450" cy="230" r="1.8" />
+    <circle cx="600" cy="90" r="1.1" />
+    <circle cx="770" cy="50" r="1.3" />
+    <circle cx="980" cy="200" r="1.6" />
+    <circle cx="1250" cy="120" r="1.2" />
+    <circle cx="1420" cy="60" r="1.6" />
+    <circle cx="150" cy="320" r="1.0" />
+    <circle cx="420" cy="380" r="1.3" />
+    <circle cx="850" cy="320" r="1.5" />
+    <circle cx="1200" cy="340" r="1.1" />
+  </g>
+
+  <!-- earth at bottom-right -->
+  <g transform="translate(900,250)">
+    <!-- glow -->
+    <circle cx="450" cy="300" r="380" fill="url(#earthGlow)"/>
+
+    <!-- Earth disk -->
+    <g transform="translate(200,120)">
+      <circle cx="450" cy="300" r="300" fill="#023a6b" />
+      <!-- continents (stylized) -->
+      <path d="M420 220c60-40 140-20 180 20 40 40 30 100-10 130-40 30-120 10-170-20-40-25-50-80 0-130z" fill="#2bb3a3" opacity="0.95"/>
+      <path d="M560 340c30 10 70 40 80 80 10 40-20 80-60 90-40 10-90-10-120-30-30-20-40-60-10-120 20-40 80-60 110-20z" fill="#1fa38a" opacity="0.95"/>
+      <!-- cloud layer -->
+      <g fill="#ffffff" opacity="0.22">
+        <ellipse cx="440" cy="230" rx="120" ry="28"/>
+        <ellipse cx="510" cy="300" rx="160" ry="36"/>
+        <ellipse cx="380" cy="360" rx="90" ry="22"/>
+      </g>
+      <!-- limb shading -->
+      <ellipse cx="540" cy="340" rx="300" ry="300" fill="black" opacity="0.18"/>
+    </g>
+  </g>
+</svg>
