@@ -1,58 +1,101 @@
-body{font-family: Arial, sans-serif; margin:20px}
+:root{
+	--brand-bg:#2C1E4F; /* deep purple */
+	--brand-accent:#bfb3ff; /* pale lilac */
+	--brand-grad-1:#6D3FD7;
+	--brand-grad-2:#5A3BDB;
+	--card-bg: rgba(255,255,255,0.03);
+	--muted:#c7c3d9;
+}
+body{font-family: Arial, sans-serif; margin:0; background:linear-gradient(180deg,var(--brand-bg), #24163a); color:#fff}
 label{display:block; margin:6px 0}
 button{margin-right:8px}
 
 /* Sidebar layout */
 .layout{display:flex}
-.sidebar{width:200px; background:#f5f5f5; padding:16px; border-radius:6px}
+.sidebar{width:200px; padding:16px; border-radius:6px}
 .sidebar h2{margin-top:0}
 .sidebar ul{list-style:none; padding:0}
 .sidebar li{margin:8px 0}
 .sidebar a{color:#fff; text-decoration:none}
 .main-content{flex:1; margin-left:16px}
-.card{background:#fff; border:1px solid #ddd; padding:12px; margin-bottom:12px; border-radius:6px}
-.user-info{font-size:0.9rem; color:#444}
+.card{background:var(--card-bg); border:1px solid rgba(255,255,255,0.06); padding:16px; margin-bottom:16px; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.45)}
+.user-info{font-size:0.95rem; color:var(--muted)}
 .recent-list{margin-top:8px}
 
 /* Sidebar layout */
 .sidebar{
-	position:fixed;
-	left:0; top:0; bottom:0;
-	width:200px;
-	background:#1e293b; /* slate */
-	color:#fff;
-	padding:16px 8px;
+ 	position:fixed;
+ 	left:0; top:0; bottom:0;
+ 	width:220px;
+ 	background: linear-gradient(180deg, rgba(109,63,215,0.95), rgba(90,59,219,0.95));
+ 	color:#fff;
+ 	padding:22px 12px;
 }
-.sidebar-brand{font-size:1.2rem; font-weight:700; margin-bottom:12px; text-align:center}
-.sidebar-link{display:block; color:#fff; padding:8px 12px; margin:6px 0; text-decoration:none; border-radius:4px}
-.sidebar-link:hover{background:#111827; color:#fff}
-.content{margin-left:220px; padding:20px}
+.sidebar-brand{font-size:1.2rem; font-weight:700; margin-bottom:16px; text-align:center; color:#fff}
+.sidebar-link{display:block; color:#fff; padding:10px 14px; margin:6px 0; text-decoration:none; border-radius:8px}
+.sidebar-link:hover{background:rgba(255,255,255,0.04); color:#fff}
+.content{margin-left:240px; padding:28px}
 
 /* small responsive tweak */
-@media(max-width:700px){
-	.sidebar{position:relative; width:100%; height:auto}
-	.content{margin-left:0}
+@media(max-width:1000px){
+	/* Collapse sidebar to top bar on tablet and small laptops */
+	.sidebar{position:relative; width:100%; height:auto; display:flex; align-items:center; gap:12px; padding:12px 16px}
+	.sidebar-brand{margin:0; flex:0 0 auto}
+	.sidebar-link{display:inline-block; margin:0 8px 0 0; padding:8px 10px}
+	.content{margin-left:0; padding:18px}
+	.content, .main-content{margin-left:0}
 }
+
+@media(max-width:700px){
+	/* Mobile: stack layout, enlarge touch targets */
+	.sidebar{flex-direction:row; flex-wrap:wrap; padding:10px}
+	.sidebar-link{flex:1 1 100%; padding:12px 14px; border-radius:10px}
+	.card{padding:12px; margin-bottom:12px}
+	.login-card{padding:18px}
+	.site-title{font-size:20px}
+	.btn-primary{width:100%; text-align:center}
+	.controls{display:flex; flex-direction:column; gap:10px}
+	.controls .btn-primary{width:100%}
+	.timeline-list{max-height:40vh}
+	#map{min-height:300px}
+}
+
+@media (min-width:1001px) and (max-width:1400px){
+	/* Medium screens: slightly narrower sidebar */
+	.sidebar{width:200px}
+	.content{margin-left:220px}
+}
+
+/* Ensure images and svg scale */
+img, svg{max-width:100%; height:auto}
+
+/* Map responsiveness */
+#map{width:100%; height:100%; min-height:480px}
+
 
 /* Timeline page styles */
 .timeline-list{list-style:none; padding:0; margin:0; max-height:70vh; overflow:auto}
-.timeline-item{padding:8px; border-bottom:1px solid #eee; cursor:pointer}
-.timeline-item:hover{background:#f8fafc}
-.ti-time{font-weight:600}
-.ti-coords{font-size:0.9rem; color:#374151}
-.ti-src{font-size:0.8rem; color:#6b7280}
+.timeline-item{padding:10px; border-bottom:1px solid rgba(255,255,255,0.03); cursor:pointer}
+.timeline-item:hover{background:rgba(255,255,255,0.02)}
+.ti-time{font-weight:700; color:#fff}
+.ti-coords{font-size:0.9rem; color:var(--muted)}
+.ti-src{font-size:0.85rem; color:var(--brand-accent)}
 
-.timeline-item:focus{outline:2px solid #3b82f6; background:#eef2ff}
+.timeline-item:focus{outline:2px dashed rgba(191,179,255,0.5); background:rgba(191,179,255,0.04)}
 
 #map{height:100%; min-height:480px}
 
-.toast{position:fixed; right:20px; bottom:20px; background:#111827; color:white; padding:8px 12px; border-radius:6px}
+.toast{position:fixed; right:20px; bottom:20px; background:linear-gradient(90deg,var(--brand-grad-1),var(--brand-grad-2)); color:white; padding:10px 14px; border-radius:8px; box-shadow:0 8px 24px rgba(45,18,83,0.5)}
 .toast-fade{opacity:0; transition:opacity 0.3s ease}
 
 .status-dot{display:inline-block; width:10px; height:10px; border-radius:50%; margin-left:8px; vertical-align:middle}
-.status-dot.online{background:#16a34a}
-.status-dot.offline{background:#ef4444}
-.status-dot.pulse{box-shadow:0 0 8px rgba(0,0,0,0.2); transform:scale(1.1)}
+.status-dot.online{background:#34d399}
+.status-dot.offline{background:#fb7185}
+.status-dot.pulse{box-shadow:0 0 12px rgba(111,63,215,0.28); transform:scale(1.08)}
+
+/* Utility primary button matching login page */
+.btn-primary{display:inline-block; padding:10px 14px; border-radius:10px; background:linear-gradient(90deg,var(--brand-grad-1),var(--brand-grad-2)); color:#fff; border:0; font-weight:700; cursor:pointer}
+.muted{color:var(--muted)}
 
 .attention{animation: pulse 1.2s infinite}
 @keyframes pulse{ 0%{transform:scale(1)} 50%{transform:scale(1.05)} 100%{transform:scale(1)} }

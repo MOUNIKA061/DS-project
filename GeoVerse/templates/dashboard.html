@@ -3,12 +3,12 @@
 {% block content %}
   <div class="layout">
     <aside class="sidebar">
-      <h2>GeoVerse</h2>
+      <div class="sidebar-brand">GeoVerse</div>
       <nav>
         <ul>
-          <li><a href="/dashboard?userid={{ userid }}">Dashboard</a></li>
-          <li><a href="/timeline?userid={{ userid }}">Location History</a></li>
-          <li><a href="/timeline?userid={{ userid }}">Timeline Map</a></li>
+          <li><a class="sidebar-link" href="/dashboard?userid={{ userid }}">Dashboard</a></li>
+          <li><a class="sidebar-link" href="/timeline?userid={{ userid }}">Location History</a></li>
+          <li><a class="sidebar-link" href="/timeline?userid={{ userid }}">Timeline Map</a></li>
         </ul>
       </nav>
     </aside>
@@ -17,8 +17,8 @@
         <header>
           <h1>Dashboard</h1>
           <div class="user-info">UserID: <span id="user-id">{{ userid }}</span>
-            <button id="copy-userid" class="copy-btn" title="Copy UserID">Copy</button>
-            <span class="status-wrap">Status: <span id="status-indicator">...</span> <span id="status-dot" class="status-dot"></span></span>
+            <button id="copy-userid" class="btn-primary" title="Copy UserID" style="padding:6px 10px; font-size:0.9rem; margin-left:8px">Copy</button>
+            <span class="status-wrap" style="margin-left:12px">Status: <span id="status-indicator">...</span> <span id="status-dot" class="status-dot"></span></span>
           </div>
         </header>
 
@@ -34,10 +34,10 @@
         <section class="card">
           <h3>Offline Queue</h3>
           <div>Offline entries pending: <span id="queue-count">0</span></div>
-          <div class="controls">
-            <button id="sync-btn" style="display:none">Sync Offline Data</button>
-            <button id="toggle-online">Toggle Online</button>
-            <button id="go-timeline">Go to Timeline Map</button>
+          <div class="controls" style="display:flex; gap:8px; align-items:center">
+            <button id="sync-btn" class="btn-primary" style="display:none">Sync Offline Data</button>
+            <button id="toggle-online" class="btn-primary" style="background:rgba(255,255,255,0.06); font-weight:600">Toggle Online</button>
+            <a id="go-timeline" class="btn-primary" href="/timeline?userid={{ userid }}">Go to Timeline Map</a>
           </div>
           <div id="toast" class="toast" role="status" aria-live="polite" style="display:none"></div>
         </section>

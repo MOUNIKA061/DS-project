@@ -1,17 +1,74 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>GeoVerse — Login</title>
   <link rel="stylesheet" href="/static/css/style.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pap6Yk6kGkYwWv2wZ3qK1Yx1ZQ2s9Yy6G9l9nK6Q2q1j9Y6J+0J1K6lV9Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Login page specific styles */
+    body.login-bg{ margin:0; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background-color:#2C1E4F; color:#fff; }
+    .login-hero{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; background-color:#2C1E4F; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cdefs%3E%3Cpattern id='p' width='200' height='200' patternUnits='userSpaceOnUse'%3E%3Crect width='200' height='200' fill='%23231a3a'/%3E%3Cpath d='M10 40 L60 10 L110 40' stroke='%232a2142' stroke-opacity='0.25' stroke-width='1' fill='none'/%3E%3Ccircle cx='60' cy='10' r='1.7' fill='%238a7bd6'/%3E%3Ccircle cx='110' cy='40' r='1.7' fill='%238a7bd6'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23p)'/%3E%3C/svg%3E"); background-size:cover; }
+    .login-card{ width:100%; max-width:420px; background:rgba(255,255,255,0.03); border-radius:16px; padding:36px 32px; box-shadow:0 6px 30px rgba(3,6,23,0.6); backdrop-filter: blur(6px); border:1px solid rgba(255,255,255,0.04); text-align:center }
+    .logo{ width:84px; height:84px; margin:0 auto 12px; display:flex; align-items:center; justify-content:center }
+    .logo svg{ width:64px; height:64px; fill:#fff }
+    .site-title{ font-size:28px; font-weight:700; margin-bottom:20px; color:#fff }
+    .inputs{ display:flex; flex-direction:column; gap:12px; margin-bottom:18px }
+    .input-row{ display:flex; align-items:center; gap:10px; background:rgba(0,0,0,0.12); padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.03) }
+    .input-row i{ color:#bfb3ff; min-width:20px }
+    .input-row input{ background:transparent; border:0; outline:none; color:#fff; font-size:15px; width:100% }
+    .login-btn{ width:100%; padding:14px; border-radius:12px; background:linear-gradient(90deg,#6D3FD7,#5A3BDB); color:#fff; border:0; font-weight:700; font-size:16px; cursor:pointer }
+    .login-footer{ margin-top:14px; color:#c7c3d9 }
+    .login-footer a{ color:#9ba4ff; text-decoration:none; font-weight:600 }
+    @media (max-width:480px){ .login-card{ padding:24px } .site-title{ font-size:22px } }
+  </style>
 </head>
-<body>
-  <h1>GeoVerse — Login</h1>
-  <form action="/login" method="post">
-    <label>Phone or UserID<input name="login" required></label>
-    <label>Password<input name="password" type="password" required></label>
-    <button type="submit">Login</button>
-  </form>
-  <p>New? <a href="/signup">Sign up</a></p>
+<body class="login-bg">
+  <main class="login-hero">
+    <div class="login-card" role="main">
+      <div class="logo" aria-hidden="true">
+        <!-- simplified globe/network icon -->
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g fill="none" stroke="#fff" stroke-width="1.5">
+            <circle cx="32" cy="32" r="20" stroke-opacity="0.95"/>
+            <path d="M12 32c6-6 16-10 32-10" stroke-opacity="0.6"/>
+            <path d="M52 32c-6 6-16 10-32 10" stroke-opacity="0.6"/>
+            <circle cx="22" cy="24" r="1.8" fill="#fff" stroke="none"/>
+            <circle cx="40" cy="42" r="1.8" fill="#fff" stroke="none"/>
+          </g>
+        </svg>
+      </div>
+      <div class="site-title">GeoVerse</div>
+      <form action="/login" method="post" onsubmit="return validateLogin(event)">
+        <div class="inputs">
+          <label class="input-row">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+            <input name="login" placeholder="Phone or userID" required aria-label="Phone or user ID" />
+          </label>
+          <label class="input-row">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+            <input name="password" type="password" id="pwd" placeholder="Password" required aria-label="Password" />
+            <button id="pwd-toggle" type="button" onclick="togglePwd()" style="background:none;border:0;color:#cfc3ff;cursor:pointer;font-size:14px">Show</button>
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; font-size:0.95rem; color: #ddd;">
+            <input type="checkbox" name="remember" />
+            Remember me
+          </label>
+        </div>
+        <button class="login-btn" type="submit">Log In</button>
+      </form>
+      <div class="login-footer">Don't have an account? <a href="/signup">Sign Up</a></div>
+    </div>
+  </main>
+
+  <script>
+    function togglePwd(){
+      const p = document.getElementById('pwd'); const btn = document.getElementById('pwd-toggle');
+      if(p.type==='password'){ p.type='text'; if(btn) btn.textContent='Hide'; } else { p.type='password'; if(btn) btn.textContent='Show'; }
+    }
+    function validateLogin(e){ const f=e.target; const l=f.login.value.trim(); const p=f.password.value; if(!l||!p){ alert('Please enter login and password'); return false } return true }
+  </script>
 </body>
 </html>
