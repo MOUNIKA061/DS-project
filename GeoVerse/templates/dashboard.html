@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>GeoVerse</h2>
+      <nav>
+        <ul>
+          <li><a href="/dashboard?userid={{ userid }}">Dashboard</a></li>
+          <li><a href="/timeline?userid={{ userid }}">Location History</a></li>
+          <li><a href="/timeline?userid={{ userid }}">Timeline Map</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <div id="dashboard-root" data-userid="{{ userid }}">
+        <header>
+          <h1>Dashboard</h1>
+          <div class="user-info">UserID: <span id="user-id">{{ userid }}</span>
+            <button id="copy-userid" class="copy-btn" title="Copy UserID">Copy</button>
+            <span class="status-wrap">Status: <span id="status-indicator">...</span> <span id="status-dot" class="status-dot"></span></span>
+          </div>
+        </header>
+
+        <section class="card">
+          <h3>Latest Location</h3>
+          <div>Latitude: <span id="lat">—</span></div>
+          <div>Longitude: <span id="lon">—</span></div>
+          <div>Time: <span id="ts">—</span></div>
+          <div>Status: <span id="loc-status">—</span></div>
+          <ul id="recent-list" class="recent-list"></ul>
+        </section>
+
+        <section class="card">
+          <h3>Offline Queue</h3>
+          <div>Offline entries pending: <span id="queue-count">0</span></div>
+          <div class="controls">
+            <button id="sync-btn" style="display:none">Sync Offline Data</button>
+            <button id="toggle-online">Toggle Online</button>
+            <button id="go-timeline">Go to Timeline Map</button>
+          </div>
+          <div id="toast" class="toast" role="status" aria-live="polite" style="display:none"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script>
+    window.USERID = "{{ userid }}";
+  </script>
+  <script src="/static/js/dashboard.js"></script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Location History</h1>
+  <p>Timeline entries for user <strong>{{ userid }}</strong></p>
+  <button id="refresh">Refresh</button>
+  <ul id="timeline-list"></ul>
+
+  <script>
+    const USERID = "{{ userid }}";
+    async function load(){
+      const res = await fetch(`/api/timeline?userid=${USERID}`);
+      const j = await res.json();
+      const list = document.getElementById('timeline-list');
+      list.innerHTML = '';
+      for(const p of j.timeline){
+        const li = document.createElement('li');
+        li.innerText = `${new Date(p.timestamp*1000).toLocaleString()} — (${p.lat.toFixed(4)}, ${p.lon.toFixed(4)}) [${p.source}]`;
+        list.appendChild(li);
+      }
+    }
+    document.getElementById('refresh').addEventListener('click', load);
+    load();
+  </script>
+
+{% endblock %}

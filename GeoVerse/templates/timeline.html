@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div id="timeline-root" data-userid="{{ userid }}">
+    <div style="display:flex; gap:12px; align-items:stretch; height:80vh">
+      <div id="map" style="flex:1; border:1px solid #ccc; border-radius:6px; overflow:hidden"></div>
+      <aside style="width:340px;">
+        <div class="card">
+          <h3>Timeline</h3>
+          <div style="margin-bottom:8px">
+            <div style="margin-bottom:6px">
+              <input id="search-ts" placeholder="Timestamp (e.g. MM-DD-YYYY HH:MM:SS or epoch)" style="width:100%" />
+              <div class="hint" style="font-size:0.85rem; color:#6b7280; margin-top:4px">Try: 10-30-2025 14:22:01, 2025-10-30 14:22, epoch seconds, "now", or "-2" (2 hours ago)</div>
+            </div>
+            <div style="margin-top:8px; display:flex; gap:6px">
+              <button id="search-btn">Search</button>
+              <button id="nearest-btn">Find nearest</button>
+              <button id="refresh-btn">Refresh</button>
+            </div>
+          </div>
+          <div id="no-results" style="display:none; color:#ef4444; font-weight:600; margin-bottom:8px">No results found.</div>
+          <pre id="debug-json" style="display:none; max-height:150px; overflow:auto; background:#f3f4f6; padding:8px; border-radius:6px"></pre>
+          <div class="legend" style="margin:8px 0; font-size:0.9rem">
+            <strong>Legend</strong>
+            <div style="display:flex; gap:8px; margin-top:6px">
+              <div style="display:flex; align-items:center; gap:6px"><span style="width:12px;height:12px;background:#16a34a;display:inline-block;border-radius:2px"></span>Online</div>
+              <div style="display:flex; align-items:center; gap:6px"><span style="width:12px;height:12px;background:#f59e0b;display:inline-block;border-radius:2px"></span>Queued</div>
+              <div style="display:flex; align-items:center; gap:6px"><span style="width:12px;height:12px;background:#2563eb;display:inline-block;border-radius:2px"></span>Synced</div>
+            </div>
+          </div>
+          <div id="timeline-toast" class="toast" style="display:none" role="status" aria-live="polite"></div>
+          <ul id="timeline-list" class="timeline-list"></ul>
+        </div>
+      </aside>
+    </div>
+    <!-- Full location history (from DLL) displayed below the map -->
+    <div style="margin-top:12px">
+      <div class="card">
+        <h3>All Locations (chronological)</h3>
+        <ul id="full-timeline" class="timeline-list"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.USERID = "{{ userid }}";
+  </script>
+  <script src="/static/js/timeline.js"></script>
+{% endblock %}
